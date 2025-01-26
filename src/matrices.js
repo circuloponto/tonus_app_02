@@ -59,7 +59,7 @@ const intervals = {
     const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
     const stringStartNotes = ['E', 'B', 'G', 'D', 'A', 'E']; // Standard tuning, from high E to low E
 
-    return stringStartNotes.map(startNote => {
+    const matrix = stringStartNotes.map(startNote => {
       const startIndex = notes.indexOf(startNote);
       const stringNotes = [];
       
@@ -70,4 +70,6 @@ const intervals = {
       
       return stringNotes;
     });
+
+    return matrix.reverse(); // Reverse to match fret matrix order
   };
