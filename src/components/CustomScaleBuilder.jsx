@@ -17,9 +17,8 @@ const CustomScaleBuilder = ({ intervals, onIntervalToggle }) => {
             key={interval}
             className={`interval-square ${intervals.includes(Number(interval)) ? 'selected' : ''} ${interval === 0 ? 'root' : ''}`}
             onClick={() => handleClick(interval)}
-            disabled={interval === 0}
           >
-            {interval === 0 ? 'R' : intervals.includes(Number(interval)) ? '×' : interval}
+            {intervals.includes(Number(interval)) ? '×' : interval}
           </button>
         ))}
       </div>

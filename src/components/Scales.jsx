@@ -7,7 +7,7 @@ import { Scale, Note } from '@tonaljs/tonal';
 const Scales = ({ onSelectScale }) => {
   const [selectedRoot, setSelectedRoot] = useState('C');
   const [selectedScale, setSelectedScale] = useState('custom');
-  const [customIntervals, setCustomIntervals] = useState([0]); // Root note is always selected
+  const [customIntervals, setCustomIntervals] = useState([]); // Start with no intervals selected
   
   const scaleTypes = [
     { name: 'custom', label: 'Custom' },
@@ -37,7 +37,6 @@ const Scales = ({ onSelectScale }) => {
   };
 
   const handleIntervalToggle = (interval) => {
-    if (interval === 0) return; // Can't toggle root note
     setCustomIntervals(prev => 
       prev.includes(interval)
         ? prev.filter(i => i !== interval)
@@ -62,7 +61,7 @@ const Scales = ({ onSelectScale }) => {
       const normalizedNotes = scale.notes.map(normalizeNote);
       onSelectScale(normalizedNotes);
     }
-  }, [selectedRoot, selectedScale, customIntervals]);
+  }, [selectedRoot, selectedScale, customIntervals, onSelectScale]);
 
   return (
     <div className="scales-section">

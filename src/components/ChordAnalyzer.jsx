@@ -6,11 +6,16 @@ const ChordAnalyzer = ({ notes }) => {
   const [chordNames, setChordNames] = useState([]);
 
   useEffect(() => {
-    console.log('Notes passed to ChordAnalyzer:', notes);
+    console.log('Notes received by ChordAnalyzer:', notes);
+    console.log('Notes type:', typeof notes, Array.isArray(notes));
+    console.log('Individual note types:', notes.map(note => typeof note));
+    
     const detected = notes.length > 0 ? Chord.detect(notes) : [];
-    console.log('Chord names detected:', detected);
+    console.log('Chord.detect input:', notes);
+    console.log('Chord.detect output:', detected);
+    
     setChordNames(detected);
-    setCurrentIndex(0); // Reset index when new chord is detected
+    setCurrentIndex(0);
   }, [notes]);
 
   const nextChord = () => {

@@ -7,21 +7,22 @@ const Fretboard = ({ notes, indexes, onFretClick, clickedFrets, scaleNotes = [] 
     return parsed.empty ? note : Note.simplify(parsed.name);
   };
 
-  const isHighlighted = (note, index) => {
-    const isClicked = clickedFrets.some(fret => 
-      fret.stringIndex === index[0] && fret.fretIndex === index[1]
+  const isClicked = (stringIndex, fretIndex) => {
+    return clickedFrets.some(
+      fret => fret.stringIndex === stringIndex && fret.fretIndex === fretIndex
     );
-    
-    // Normalize both the current note and scale notes for comparison
-    const normalizedNote = normalizeNote(note);
+  };
+
+  const isInScale = (note) => {
     const normalizedScaleNotes = scaleNotes.map(normalizeNote);
-    const isInScale = normalizedScaleNotes.includes(normalizedNote);
-    
-    return {
-      'click-highlighted': isClicked && !isInScale,
-      'scale-highlighted': isInScale && !isClicked,
-      'scale-click-highlighted': isInScale && isClicked
-    };
+    const normalizedNote = normalizeNote(note);
+    return normalizedScaleNotes.includes(normalizedNote);
+  };
+
+  const isRoot = (note) => {
+    const normalizedScaleNotes = scaleNotes.map(normalizeNote);
+    const normalizedNote = normalizeNote(note);
+    return normalizedScaleNotes.length > 0 && normalizedNote === normalizedScaleNotes[0];
   };
 
   // Log normalized scale notes for debugging
@@ -38,10 +39,11 @@ const Fretboard = ({ notes, indexes, onFretClick, clickedFrets, scaleNotes = [] 
             <div className="fret-wrapper" key={`string-${stringIndex}-fret-${fretIndex}`}>
               <div 
                 data-index={indexes[stringIndex][fretIndex]}
-                className={`fret ${Object.entries(isHighlighted(note, [stringIndex, fretIndex]))
-                  .filter(([_, value]) => value)
-                  .map(([className]) => className)
-                  .join(' ')}`} 
+                className={`fret 
+                  ${isClicked(stringIndex, fretIndex) ? 'click-highlighted' : ''}
+                  ${isInScale(note) ? 'scale-highlighted' : ''}
+                  ${isRoot(note) ? 'root-note' : ''}
+                  ${isInScale(note) && isClicked(stringIndex, fretIndex) ? 'scale-click-highlighted' : ''}`} 
                 onClick={(e) => onFretClick(e, note, stringIndex, fretIndex)}
               >
                 {note}
