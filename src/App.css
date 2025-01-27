@@ -542,117 +542,14 @@
   margin-top: 0.5rem;
 }
 
-.scales-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-  background: rgb(54, 54, 54);
-  border-radius: 5px;
-}
-
-.scale-item {
-  padding: 10px 15px;
-  background: rgb(40, 40, 40);
-  border-radius: 4px;
-  color: rgb(246, 182, 7);
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.scale-item:hover {
-  background: rgb(60, 60, 60);
-}
-
-.note-picker-container {
-  width: 50px;
-  height: 50px;
-  background: rgb(40, 40, 40);
-  border-radius: 4px;
-  overflow: hidden;
-  position: relative;
-  touch-action: none;
-  cursor: grab;
-}
-
-.note-picker-container:active {
-  cursor: grabbing;
-}
-
-.note-picker-window {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.note-picker {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-  will-change: transform;
-}
-
-.note-item {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgb(246, 182, 7);
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.note-item.selected {
-  font-weight: bold;
-}
-
-.note-picker-center-line {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 50px;
-  height: 2px;
-  background: rgba(246, 182, 7, 0.3);
-  pointer-events: none;
-}
-
-.note-picker-window::before,
-.note-picker-window::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.note-picker-window::before {
-  left: 0;
-  background: linear-gradient(to right, rgb(40, 40, 40) 0%, transparent 100%);
-}
-
-.note-picker-window::after {
-  right: 0;
-  background: linear-gradient(to left, rgb(40, 40, 40) 0%, transparent 100%);
-}
-
 .scales-section {
-  display: flex;
+  display: grid;
+  grid-template-columns: 170px 120px;
   gap: 20px;
   padding: 15px;
   background: rgb(54, 54, 54);
   border-radius: 5px;
-  height:20.7vh;
+  height: 20.7vh;
 }
 
 .scale-controls {
@@ -664,11 +561,17 @@
 .scale-controls label {
   color: rgb(246, 182, 7);
   font-size: 0.9rem;
+  width: 120px;
 }
-
+.note-picker-container{
+  padding: 8px 25px;
+  background: rgb(40, 40, 40);
+  font-size: 18px;
+color: white;
+}
 .scale-select {
   width: 150px;
-  padding: 8px;
+  padding: 8px 22px;
   background: rgb(40, 40, 40);
   border: none;
   border-radius: 4px;
@@ -813,57 +716,58 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  grid-column: 1;
+  grid-row: 2;
+  transform: scale(0.7);
+  transform-origin: top left;
+  margin-top: 10px;
 }
 
 .interval-squares {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
   gap: 4px;
+  width: 450px;
 }
 
 .interval-square {
   width: 30px;
   height: 30px;
-  background: rgb(40, 40, 40);
-  border: none;
-  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgb(40, 40, 40);
+  border: none;
+  color: #fff;
   cursor: pointer;
+  font-size: 14px;
   border-radius: 4px;
-  font-size: 1rem;
   transition: background-color 0.2s;
 }
 
-.interval-square:hover {
-  background: rgb(60, 60, 60);
+.interval-square:hover:not(:disabled) {
+  background: rgb(50, 50, 50);
 }
 
 .interval-square.selected {
   background: rgb(246, 182, 7);
   color: black;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-.interval-square.root {
-  background: rgb(246, 182, 7);
-  color: black;
-  font-weight: bold;
-  cursor: default;
-}
-
-.interval-square.root:hover {
-  background: rgb(246, 182, 7);
 }
 
 .interval-square:disabled {
   cursor: default;
+  opacity: 0.7;
+}
+
+.root {
+  background: rgb(246, 182, 7) !important;
+  color: black !important;
 }
 
 .interval-labels {
   display: flex;
-  gap: 4px;
+  gap: 9px;
+  width: 450px;
 }
 
 .interval-label {

@@ -80,13 +80,13 @@ const Scales = ({ onSelectScale }) => {
           onSelectScale={setSelectedScale}
           scaleTypes={scaleTypes}
         />
-        {selectedScale === 'custom' && (
-          <CustomScaleBuilder
-            intervals={customIntervals}
-            onIntervalToggle={handleIntervalToggle}
-          />
-        )}
       </div>
+      {selectedScale === 'custom' && (
+        <CustomScaleBuilder
+          intervals={customIntervals}
+          onIntervalToggle={handleIntervalToggle}
+        />
+      )}
     </div>
   );
 };
