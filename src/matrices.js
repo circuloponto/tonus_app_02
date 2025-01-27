@@ -52,7 +52,7 @@ const intervals = {
       }
       matrix.push(row);
     }
-    return matrix.reverse();
+    return matrix//.reverse();
   };
 
   export const createNotesMatrix = (numFrets) => {
@@ -71,5 +71,5 @@ const intervals = {
       return stringNotes;
     });
 
-    return matrix.reverse(); // Reverse to match fret matrix order
+    return matrix//.reverse(); // Reverse to match fret matrix order
   };

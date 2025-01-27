@@ -1,33 +1,40 @@
 import React, { useState } from 'react';
-import { createFretMatrix,createNotesMatrix } from '../matrices.js';
+import { createFretMatrix, createNotesMatrix } from '../matrices.js';
 import ChordAnalyzer from './ChordAnalyzer';
+import Scales from './Scales';
 
-const Controls = ({ numFrets, setNumFrets, setIndexes, setMatrix, createNotesMatrix, clickedNotes, onClear }) => {
-  const [isAdjusting, setIsAdjusting] = useState(false);
-
+const Controls = ({ numFrets, setNumFrets, clickedNotes, onClear, createNotesMatrix, onSelectScale }) => {
   const handleNumberClick = (increment) => {
-    const newNumFrets = numFrets + increment;
-    if (newNumFrets >= 0 && newNumFrets <= 24) {
-      setNumFrets(newNumFrets);
-      setIndexes(createFretMatrix(newNumFrets, 6));
-      setMatrix(createNotesMatrix(newNumFrets));
-    }
+    const newValue = Math.max(1, Math.min(24, numFrets + increment));
+    setNumFrets(newValue);
   };
 
   return (
     <div className="controls">
-      <div className="control-group">
-      <div className="numOfFrets">Frets</div>
-        <div className="fret-controls">
-         
+      <div className="fret-controls">
+        <label>
+          Number of Frets
+        </label>
+        <div className="fret-number-controls">
           <button
             className="control-button"
             onClick={() => handleNumberClick(-1)}
-            disabled={numFrets <= 0}
+            disabled={numFrets <= 1}
           >
             -
           </button>
-          <span className="fret-number">{numFrets}</span>
+          <input
+            type="number"
+            min="1"
+            max="24"
+            value={numFrets}
+            onChange={(e) => {
+              const value = parseInt(e.target.value);
+              if (value >= 1 && value <= 24) {
+                setNumFrets(value);
+              }
+            }}
+          />
           <button
             className="control-button"
             onClick={() => handleNumberClick(1)}
@@ -43,9 +50,15 @@ const Controls = ({ numFrets, setNumFrets, setIndexes, setMatrix, createNotesMat
           Clear Frets
         </button>
       </div>
-      <ChordAnalyzer notes={clickedNotes} />
+
+      <ChordAnalyzer 
+        notes={clickedNotes || []}
+        createNotesMatrix={createNotesMatrix}
+      />
+      
+      <Scales onSelectScale={onSelectScale} />
     </div>
   );
-};
+}
 
 export default Controls;
