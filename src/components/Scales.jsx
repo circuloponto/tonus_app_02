@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import NotePicker from './NotePicker';
+import ScalePicker from './ScalePicker';
+import CustomScaleBuilder from './CustomScaleBuilder';
 import { Scale, Note } from '@tonaljs/tonal';
 
 const Scales = ({ onSelectScale }) => {
   const [selectedRoot, setSelectedRoot] = useState('C');
-  const [selectedScale, setSelectedScale] = useState('major');
+  const [selectedScale, setSelectedScale] = useState('custom');
+  const [customIntervals, setCustomIntervals] = useState([0]); // Root note is always selected
   
   const scaleTypes = [
+    { name: 'custom', label: 'Custom' },
     { name: 'major', label: 'Major' },
     { name: 'minor', label: 'Minor' },
     { name: 'dorian', label: 'Dorian' },
@@ -17,12 +21,9 @@ const Scales = ({ onSelectScale }) => {
   ];
 
   const normalizeNote = (note) => {
-    // First normalize the note using tonal's Note module
     const parsed = Note.get(note);
     if (!parsed.empty) {
-      // Convert to sharp notation
       const normalized = Note.simplify(parsed.name);
-      // Handle specific cases where we want sharp instead of flat
       const flatToSharp = {
         'Bb': 'A#',
         'Db': 'C#',
@@ -35,17 +36,33 @@ const Scales = ({ onSelectScale }) => {
     return note;
   };
 
+  const handleIntervalToggle = (interval) => {
+    if (interval === 0) return; // Can't toggle root note
+    setCustomIntervals(prev => 
+      prev.includes(interval)
+        ? prev.filter(i => i !== interval)
+        : [...prev, interval].sort((a, b) => a - b)
+    );
+  };
+
   useEffect(() => {
-    // Get the scale notes using tonal
-    const scale = Scale.get(`${selectedRoot} ${selectedScale}`);
-    console.log('Raw scale:', scale);
-    
-    // Normalize each note
-    const normalizedNotes = scale.notes.map(normalizeNote);
-    console.log('Normalized notes:', normalizedNotes);
-    
-    onSelectScale(normalizedNotes);
-  }, [selectedRoot, selectedScale]);
+    if (selectedScale === 'custom') {
+      // Generate chromatic scale starting from root
+      const chromaticScale = Scale.get(`${selectedRoot} chromatic`).notes;
+      
+      // Use intervals to pick notes from chromatic scale
+      const scaleNotes = customIntervals.map(interval => 
+        normalizeNote(chromaticScale[interval])
+      );
+      
+      onSelectScale(scaleNotes);
+    } else {
+      // Use tonal for predefined scales
+      const scale = Scale.get(`${selectedRoot} ${selectedScale}`);
+      const normalizedNotes = scale.notes.map(normalizeNote);
+      onSelectScale(normalizedNotes);
+    }
+  }, [selectedRoot, selectedScale, customIntervals]);
 
   return (
     <div className="scales-section">
@@ -58,17 +75,17 @@ const Scales = ({ onSelectScale }) => {
       </div>
       <div className="scale-controls">
         <label>Scale Type</label>
-        <select 
-          value={selectedScale}
-          onChange={(e) => setSelectedScale(e.target.value)}
-          className="scale-select"
-        >
-          {scaleTypes.map(scale => (
-            <option key={scale.name} value={scale.name}>
-              {scale.label}
-            </option>
-          ))}
-        </select>
+        <ScalePicker
+          selectedScale={selectedScale}
+          onSelectScale={setSelectedScale}
+          scaleTypes={scaleTypes}
+        />
+        {selectedScale === 'custom' && (
+          <CustomScaleBuilder
+            intervals={customIntervals}
+            onIntervalToggle={handleIntervalToggle}
+          />
+        )}
       </div>
     </div>
   );
