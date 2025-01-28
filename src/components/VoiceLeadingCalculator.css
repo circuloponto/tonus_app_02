@@ -1,0 +1,327 @@
+.voice-leading-calculator {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+h1 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #34495e;
+  font-weight: 500;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.help-text {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  margin-top: 0.5rem;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #e74c3c;
+  padding: 1rem;
+  background-color: #fceae9;
+  border-radius: 4px;
+  margin: 1rem 0;
+}
+
+.result {
+  margin-top: 2rem;
+}
+
+.result h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.voice-leading-path {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.chord-voicing {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.chord-voicing h3 {
+  color: #2c3e50;
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+}
+
+.fret-positions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.string-fret {
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 4px;
+  font-family: monospace;
+  color: #34495e;
+  display: flex;
+  align-items: center;
+}
+
+.string-fret.muted {
+  color: #e74c3c;
+  background-color: #fef6f6;
+}
+
+.string-fret::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+  background-color: #34495e;
+}
+
+.string-fret.muted::before {
+  background-color: #e74c3c;
+}
+
+.statistics {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.description {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.progression-input {
+  margin-bottom: 2rem;
+}
+
+.chord-container {
+  margin-bottom: 1.5rem;
+}
+
+.chord-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.chord-input input {
+  width: 60px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.max-fret-input {
+  margin-bottom: 1.5rem;
+}
+
+.max-fret-input input {
+  width: 60px;
+  margin-left: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button.calculate {
+  padding: 0.75rem 1.5rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button.calculate:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.loading {
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #666;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error {
+  color: #d32f2f;
+  padding: 1rem;
+  margin: 1rem 0;
+  background-color: #ffebee;
+  border-radius: 4px;
+}
+
+.voice-leading-result {
+  margin-top: 2rem;
+}
+
+.voiced-chord {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.chord-number {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.fretboard {
+  position: relative;
+  margin: 2rem 0;
+  padding: 1rem;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.string {
+  height: 2px;
+  background: #999;
+  margin: 1rem 0;
+  position: relative;
+}
+
+.nut {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #333;
+}
+
+.fret {
+  display: inline-block;
+  width: 40px;
+  height: 100%;
+  border-right: 2px solid #999;
+  position: relative;
+}
+
+.open-string {
+  position: absolute;
+  top: -10px;
+  left: -15px;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.note {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: #3498db;
+  border-radius: 50%;
+  top: -7px;
+  left: 12px;
+}
+
+.tab-notation {
+  margin: 1rem 0;
+  font-family: monospace;
+}
+
+.tab-string {
+  display: flex;
+  gap: 1rem;
+  margin: 0.25rem 0;
+}
+
+.string-name {
+  width: 20px;
+  text-align: right;
+}
+
+.tab-line {
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+  padding: 0 0.5rem;
+}
+
+.positions {
+  margin-top: 1rem;
+  white-space: pre-line;
+  font-family: monospace;
+  color: #666;
+}
