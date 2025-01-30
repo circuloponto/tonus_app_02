@@ -1,19 +1,32 @@
 import React, { useState } from 'react';
 import Scales from './Scales';
 import ChordAnalyzer from './ChordAnalyzer';
+import MiniFretboard from './MiniFretboard';
+import { createFretMatrix, createNotesMatrix } from '../matrices.js';
 
-const VoiceLeading = ({ onVoiceLeadingModeChange }) => {
+const VoiceLeading = ({ onVoiceLeadingModeChange, clickedFrets, onFretClick, scaleNotes, onAddToProgression }) => {
   return (
-    <div className="voice-leading-controls">
-      <button 
-        className="voice-lead-button"
-        onClick={() => {
-          console.log('Voice Lead button clicked');
-          onVoiceLeadingModeChange(true);
-        }}
-      >
-        Voice Lead It!
-      </button>
+    <div className="voice-leading-section">
+      <div className="voice-leading-controls">
+        <div className="control-group">
+          <MiniFretboard 
+            notes={createNotesMatrix(24)} 
+            indexes={createFretMatrix(24, 6)} 
+            onFretClick={onFretClick} 
+            clickedFrets={clickedFrets}
+            scaleNotes={scaleNotes}
+            onAddToProgression={onAddToProgression}
+          />
+        </div>
+        <div className="control-group">
+          <button 
+            className="voice-lead-button"
+            onClick={() => onVoiceLeadingModeChange(true)}
+          >
+            Voice Lead It!
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
@@ -26,7 +39,11 @@ const ModularControls = ({
   onSelectScale,
   isOpen,
   onToggle,
-  onVoiceLeadingModeChange
+  onVoiceLeadingModeChange,
+  clickedFrets,
+  onFretClick,
+  scaleNotes,
+  onAddToProgression
 }) => {
   const [currentModule, setCurrentModule] = useState(0);
   
@@ -50,7 +67,7 @@ const ModularControls = ({
       )
     },
     {
-      label: "Scales",
+      label: "Scale Builder",
       component: (
         <Scales onSelectScale={onSelectScale} />
       )
@@ -63,7 +80,13 @@ const ModularControls = ({
     },
     {
       label: "Voice Leading",
-      component: <VoiceLeading onVoiceLeadingModeChange={onVoiceLeadingModeChange} />
+      component: <VoiceLeading 
+        onVoiceLeadingModeChange={onVoiceLeadingModeChange} 
+        clickedFrets={clickedFrets} 
+        onFretClick={onFretClick} 
+        scaleNotes={scaleNotes} 
+        onAddToProgression={onAddToProgression}
+      />
     }
   ];
 
@@ -82,8 +105,8 @@ const ModularControls = ({
 
   return (
     <div className={`modular-controls ${isOpen ? 'open' : ''}`}>
-      <button className="toggle-controls" onClick={onToggle}>
-        {isOpen ? '▼' : '▲'}
+      <button className= {`toggle-controls ${isOpen ? 'bottomToogleControls' : 'topToogleControls'}`} onClick={onToggle}>
+        {isOpen ?  '▲' : '▼'}
       </button>
       {isOpen && (
         <div className="controls-content">

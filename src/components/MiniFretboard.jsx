@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Note } from '@tonaljs/tonal';
 
-const MiniFretboard = ({ notes, indexes, onFretClick, clickedFrets, scaleNotes = [], onAddToProgression }) => {
+const MiniFretboard = ({ notes, indexes, onFretClick, clickedFrets, scaleNotes = [], onAddToProgression, renderExtraButton }) => {
   const [startFret, setStartFret] = useState(0);
   const maxFret = 24;
 
@@ -28,86 +28,64 @@ const MiniFretboard = ({ notes, indexes, onFretClick, clickedFrets, scaleNotes =
     return normalizedScaleNotes.length > 0 && normalizedNote === normalizedScaleNotes[0];
   };
 
-  const handlePrevFrets = () => {
-    setStartFret(prev => Math.max(0, prev - 1));
-  };
-
-  const handleNextFrets = () => {
-    setStartFret(prev => Math.min(maxFret - 4, prev + 1));
-  };
-
-  const handleAddToProgression = () => {
-    if (clickedFrets.length > 0) {
-      onAddToProgression?.({
-        notes,
-        indexes,
-        clickedFrets,
-        scaleNotes,
-        startFret
-      });
-    }
-  };
-
-  // Log normalized scale notes for debugging
-  React.useEffect(() => {
-    const normalizedScaleNotes = scaleNotes.map(normalizeNote);
-    console.log('Normalized scale notes in Fretboard:', normalizedScaleNotes);
-  }, [scaleNotes]);
-
-  return ( 
+  return (
     <div className="mini-fretboard-container">
+      <div className="mini-fretboard">
+        {[...Array(6)].map((_, stringIndex) => (
+          <div key={stringIndex} className="string">
+            {[...Array(4)].map((_, fretIndex) => {
+              const note = notes[stringIndex][startFret + fretIndex];
+              return (
+                <div
+                  key={fretIndex}
+                  className={`fret ${isClicked(stringIndex, fretIndex) ? 'clicked' : ''} 
+                    ${isInScale(note) ? 'in-scale' : ''} 
+                    ${isRoot(note) ? 'root' : ''}`}
+                  onClick={(e) => onFretClick?.(e, note, stringIndex, startFret + fretIndex)}
+                >
+                  <span className="note-name">{note}</span>
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+      
       <div className="mini-fretboard-controls">
-        <button 
-          onClick={handlePrevFrets}
-          disabled={startFret === 0}
+        <button
           className="fret-nav-button"
+          onClick={() => setStartFret(prev => Math.max(0, prev - 1))}
+          disabled={startFret === 0}
         >
           ←
         </button>
-        <span className="fret-position">Position {startFret}</span>
-        <button 
-          onClick={handleNextFrets}
-          disabled={startFret >= maxFret - 4}
+        <span className="fret-position">Fret {startFret}</span>
+        <button
           className="fret-nav-button"
+          onClick={() => setStartFret(prev => Math.min(maxFret - 4, prev + 1))}
+          disabled={startFret === maxFret - 4}
         >
           →
         </button>
       </div>
-      <div className="mini-fretboard">
-        {notes.map((string, stringIndex) => (
-          <div key={`string-${stringIndex}`} className={`string string${stringIndex}`}>
-            {string.slice(startFret, startFret + 5).map((note, fretIndex) => (
-              <div className="fret-wrapper" key={`string-${stringIndex}-fret-${fretIndex}`}>
-                <div 
-                  data-index={indexes[stringIndex][startFret + fretIndex]}
-                  className={`fret 
-                    ${isClicked(stringIndex, fretIndex) ? 'click-highlighted' : ''}
-                    ${isInScale(note) ? 'scale-highlighted' : ''}
-                    ${isRoot(note) ? 'root-note' : ''}
-                    ${isInScale(note) && isClicked(stringIndex, fretIndex) ? 'scale-click-highlighted' : ''}`} 
-                  onClick={(e) => onFretClick(e, note, stringIndex, startFret + fretIndex)}
-                >
-                  {note}
-                </div>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-      <div className="fret-numbers">
-        {Array.from({ length: 5 }, (_, i) => (
-          <div key={i} className="fret-number">
-            {startFret + i}
-          </div>
-        ))}
-      </div>
-      <button 
-        className="add-to-progression-button"
-        onClick={handleAddToProgression}
-        disabled={clickedFrets.length === 0}
-      >
-        Add to Progression
-      </button>
+      
+      {renderExtraButton?.()}
+      
+      {onAddToProgression && (
+        <button
+          className="add-to-progression"
+          onClick={() => onAddToProgression({
+            notes,
+            indexes,
+            clickedFrets,
+            scaleNotes,
+            startFret
+          })}
+          disabled={clickedFrets.length === 0}
+        >
+          Add to Progression
+        </button>
+      )}
     </div>
   );
 };

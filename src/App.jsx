@@ -78,15 +78,19 @@ function App() {
 
   const handleAddToProgression = (chord) => {
     setProgression(prev => {
+      // Find the first empty slot or append to the end
       const firstEmptyIndex = prev.findIndex(slot => !slot);
-      if (firstEmptyIndex === -1 && prev.length < 6) {
-        return [...prev, chord];
-      } else if (firstEmptyIndex !== -1) {
-        const newProgression = [...prev];
+      const newProgression = [...prev];
+      
+      if (firstEmptyIndex === -1) {
+        // No empty slots, append to end
+        newProgression.push(chord);
+      } else {
+        // Fill the first empty slot
         newProgression[firstEmptyIndex] = chord;
-        return newProgression;
       }
-      return prev;
+      
+      return newProgression;
     });
   };
 
@@ -94,31 +98,16 @@ function App() {
     setProgression(prev => {
       const newProgression = [...prev];
       newProgression[index] = null;
-      // Compact the array by moving all chords to the left
-      const compacted = newProgression.filter(chord => chord);
-      // Fill the remaining slots with null
-      while (compacted.length < 6) {
-        compacted.push(null);
-      }
-      return compacted;
+      return newProgression;
     });
   };
 
   const handleReorderChords = (sourceIndex, destinationIndex) => {
     setProgression(prev => {
-      // Create a compact array of non-null chords
-      const compactChords = prev.filter(chord => chord);
-      
-      // Perform the reorder on the compact array
-      const [removed] = compactChords.splice(sourceIndex, 1);
-      compactChords.splice(destinationIndex, 0, removed);
-      
-      // Fill the remaining slots with null
-      while (compactChords.length < 6) {
-        compactChords.push(null);
-      }
-      
-      return compactChords;
+      const newProgression = [...prev];
+      const [removed] = newProgression.splice(sourceIndex, 1);
+      newProgression.splice(destinationIndex, 0, removed);
+      return newProgression;
     });
   };
 
@@ -134,36 +123,28 @@ function App() {
           isOpen={isControlsOpen}
           onToggle={() => setIsControlsOpen(!isControlsOpen)}
           onVoiceLeadingModeChange={setIsVoiceLeadingMode}
+          clickedFrets={clickedFrets}
+          onFretClick={handleFretClick}
+          scaleNotes={scaleNotes} 
+          onAddToProgression={handleAddToProgression}
         />
         
         {isVoiceLeadingMode ? (
-          <>
-            <MiniFretboard 
-              notes={createNotesMatrix(24)} 
-              indexes={createFretMatrix(24, 6)} 
-              onFretClick={handleFretClick} 
-              clickedFrets={clickedFrets}
-              scaleNotes={scaleNotes}
-              onAddToProgression={handleAddToProgression}
-            />
-            <Progression 
-              chords={progression} 
-              onRemoveChord={handleRemoveChord}
-              onReorderChords={handleReorderChords}
-            />
-          </>
+          <Progression 
+            chords={progression} 
+            onRemoveChord={handleRemoveChord}
+            onReorderChords={handleReorderChords}
+          />
         ) : (
-          <>
-            <Fretboard 
-              notes={notesMatrix} 
-              indexes={indexes} 
-              onFretClick={handleFretClick} 
-              clickedFrets={clickedFrets}
-              scaleNotes={scaleNotes} 
-            />
-            <ColorLegend />
-          </>
+          <Fretboard 
+            notes={notesMatrix} 
+            indexes={indexes} 
+            onFretClick={handleFretClick} 
+            clickedFrets={clickedFrets}
+            scaleNotes={scaleNotes} 
+          />
         )}
+        <ColorLegend onHover={handleHover} />
       </div>
     </div>
   );

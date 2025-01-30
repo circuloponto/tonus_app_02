@@ -9,7 +9,6 @@ const VoiceLeadingSection = ({ onVoiceLeadingCalculated }) => {
 
   return (
     <div className="voice-leading-section">
-      <p>Select up to 5 chords using the mini fretboards below. Click on a mini fretboard to make it active, then click on the frets to add notes.</p>
       <div className="mini-fretboards">
         {Array.from({ length: 5 }, (_, i) => (
           <div key={i} className="mini-fretboard-container">
@@ -63,7 +62,7 @@ const VoiceLeadingSection = ({ onVoiceLeadingCalculated }) => {
         ))}
       </div>
       <div className="voice-leading-controls">
-        <button 
+        {/* <button 
           className="voice-lead-button"
           onClick={() => {
             const nonEmptyChords = selectedChords.filter(chord => chord && chord.length > 0);
@@ -73,7 +72,7 @@ const VoiceLeadingSection = ({ onVoiceLeadingCalculated }) => {
           }}
         >
           Voice Lead It!
-        </button>
+        </button> */}
         <button
           className="clear-button"
           onClick={() => {

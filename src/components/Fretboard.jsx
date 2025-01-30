@@ -41,7 +41,7 @@ const Fretboard = ({ notes, indexes, onFretClick, clickedFrets, scaleNotes = [] 
                 data-index={indexes[stringIndex][fretIndex]}
                 className={`fret 
                   ${isClicked(stringIndex, fretIndex) ? 'click-highlighted' : ''}
-                  ${isInScale(note) ? 'scale-highlighted' : ''}
+                  ${isInScale(note) ? 'scale-highlighted' : 'non-scale-tone'}
                   ${isRoot(note) ? 'root-note' : ''}
                   ${isInScale(note) && isClicked(stringIndex, fretIndex) ? 'scale-click-highlighted' : ''}`} 
                 onClick={(e) => onFretClick(e, note, stringIndex, fretIndex)}

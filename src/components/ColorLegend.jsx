@@ -3,9 +3,9 @@ import './ColorLegend.css';
 
 const ColorLegend = ({ onHover }) => {
   const legendItems = [
-    { type: 'scale', color: 'rgb(238, 178, 26)', label: 'Scale Notes' },
-    { type: 'clicked', color: 'rgb(46, 47, 47)', label: 'Selected Notes' },
-    { type: 'both', color: 'rgb(255, 59, 48)', label: 'Selected Scale Notes' }
+    { type: 'scale', color: 'rgb(147, 161, 161)', label: 'Scale Notes' },
+    { type: 'clicked', color: 'rgb(88, 110, 117)', label: 'Selected Notes' },
+    { type: 'both', color: 'rgb(161 103 69)', label: 'Selected Scale Notes' }
   ];
 
   const handleHover = (type) => {

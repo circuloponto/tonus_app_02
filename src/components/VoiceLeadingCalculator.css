@@ -32,7 +32,7 @@ h1 {
 }
 
 .input-group input:focus {
-  border-color: #3498db;
+ /*  border-color: #3498db; */
   outline: none;
 }
 

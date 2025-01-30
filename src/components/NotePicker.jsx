@@ -37,7 +37,8 @@ const NotePicker = ({ onSelectNote, selectedNote }) => {
     });
   };
 
-  const handleArrowClick = (direction) => {
+  const handleArrowClick = (direction, e) => {
+    e.target.blur(); // Remove focus after click
     const nextIndex = (currentIndex + direction + notes.length) % notes.length;
     setCurrentIndex(nextIndex);
     onSelectNote(notes[nextIndex]);
@@ -83,7 +84,7 @@ const NotePicker = ({ onSelectNote, selectedNote }) => {
     <div className="note-picker-outer">
       <button 
         className="note-picker-arrow left"
-        onClick={() => handleArrowClick(-1)}
+        onClick={(e) => handleArrowClick(-1, e)}
       >
         ‹
       </button>
@@ -101,7 +102,7 @@ const NotePicker = ({ onSelectNote, selectedNote }) => {
       </div>
       <button 
         className="note-picker-arrow right"
-        onClick={() => handleArrowClick(1)}
+        onClick={(e) => handleArrowClick(1, e)}
       >
         ›
       </button>
