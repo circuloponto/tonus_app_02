@@ -1,5 +1,5 @@
 .miniFretboardContainer {
-  width: 100%;
+  width: 80vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,11 +7,90 @@
 }
 
 .miniFretboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 2px;
+  background-color: rgb(37, 42, 42);
+  border-radius: 4px;
   width: 100%;
-  max-width: 150px;
-  transform: scale(1);
-  transform-origin: top center;
-  margin-top: -20px;
+  min-height: 80px;
+  box-sizing: border-box;
+}
+
+.string {
+  display: flex;
+  gap: 1px;
+  height: 18px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.fret {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(60, 68, 68);
+  border: 1px solid rgb(37, 42, 42);
+  border-radius: 2px;
+  position: relative;
+  width: calc((100% - 5px) / 6); /* 6 frets with 1px gap */
+  min-width: 0;
+  height: 18px;
+  box-sizing: border-box;
+}
+
+.note {
+  font-size: 0.6rem;
+  color: rgb(253, 246, 227);
+  opacity: 0.7;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.fret.clicked {
+  background-color: rgb(88, 110, 117) !important;
+}
+
+.fret.clicked .note {
+  font-weight: bold;
+  opacity: 1;
+  color: rgb(253, 246, 227);
+}
+
+.fret.inScale {
+  border: 1px solid rgba(253, 246, 227, 0.2);
+}
+
+.fret.inScale .note {
+  color: rgb(203, 196, 177);
+}
+
+.fret.inRange {
+  background-color: rgb(70, 78, 78);
+}
+
+.fretNumbers {
+  display: flex;
+  gap: 1px;
+  margin-top: 1px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.fretNumber {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.5rem;
+  color: rgb(253, 246, 227);
+  opacity: 0.5;
+  width: calc((100% - 5px) / 6); /* 6 frets with 1px gap */
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .controls {
@@ -26,11 +105,4 @@
   justify-content: center;
   gap: 10px;
   margin-top: -17px;
-}
-
-.fretNumber {
-  font-size: 0.6rem;
-  padding: 0;
-  line-height: 1;
-  margin-top: 1px;
 }

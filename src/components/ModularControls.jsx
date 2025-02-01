@@ -64,12 +64,14 @@ const ModularControls = ({
               onClick={() => {
                 if (clickedFrets.length > 0) {
                   const startFret = Math.min(...clickedFrets.map(fret => fret.fretIndex));
+                  const endFret = Math.max(...clickedFrets.map(fret => fret.fretIndex));
                   onAddToProgression({
                     notes: clickedNotes,
                     indexes: clickedFrets,
                     clickedFrets: clickedFrets,
                     scaleNotes: scaleNotes,
-                    startFret: startFret
+                    startFret: Math.max(0, startFret - 1),
+                    endFret: Math.min(numFrets - 1, endFret + 1)
                   });
                   onClear();
                 }

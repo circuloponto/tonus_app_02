@@ -148,6 +148,59 @@
   cursor: not-allowed;
 }
 
+.voiceLeadingSection {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  padding: 15px;
+  background-color: rgb(37, 42, 42);
+  border-radius: 8px;
+}
+
+.voiceLeadingSection .navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: rgb(253, 246, 227);
+}
+
+.voiceLeadingSection .navigation button {
+  background: none;
+  border: none;
+  color: rgb(253, 246, 227);
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 1em;
+}
+
+.voiceLeadingSection .navigation button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.addButton {
+  padding: 8px 16px;
+  background-color: rgb(88, 110, 117);
+  border: none;
+  border-radius: 4px;
+  color: rgb(253, 246, 227);
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: all 0.2s ease;
+  align-self: center;
+}
+
+.addButton:hover:not(:disabled) {
+  background-color: rgb(108, 130, 137);
+}
+
+.addButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .miniFretboard {
   width: 100%;
   max-width: 400px;

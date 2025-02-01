@@ -1,0 +1,91 @@
+.wrapper {
+  margin-top: 20px;
+  width: 91vw;
+  max-width: 1200px;
+}
+
+.progression {
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  padding: 0;
+  background-color: rgb(60, 68, 68);
+  border-radius: 8px;
+  margin: 20px 0;
+  width: 91vw;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+.progressionItem {
+  flex: 1 1 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px;
+  background-color: rgb(37, 42, 42);
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: transform 0.2s;
+}
+
+.progressionItem:hover {
+  transform: translateY(-2px);
+}
+
+.removeButton {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgb(88, 110, 117);
+  color: rgb(253, 246, 227);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+  box-sizing: border-box;
+}
+
+.progressionItem:hover .removeButton {
+  opacity: 1;
+}
+
+.removeButton:hover {
+  background: rgb(203, 75, 75);
+}
+
+.itemNumber {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 18px;
+  height: 18px;
+  background: rgb(88, 110, 117);
+  color: rgb(253, 246, 227);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+.chordNotes {
+  margin-top: 8px;
+  color: rgb(253, 246, 227);
+  background: red;
+  font-size: 0.7rem;
+  text-align: center;
+  opacity: 0.8;
+  width: 100%;
+  box-sizing: border-box;
+}

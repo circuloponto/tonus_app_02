@@ -40,6 +40,7 @@ function App() {
   };
 
   const handleAddToProgression = (chord) => {
+    console.log('Adding chord to progression:', chord);
     setChords(prev => [...prev, chord]);
   };
 
@@ -75,7 +76,8 @@ function App() {
         <Progression
           chords={chords}
           onRemoveChord={handleRemoveChord}
-          onReorderChords={handleReorderChords}
+          scaleNotes={scaleNotes}
+          numFrets={numFrets}
         />
 
         <ModularControls
