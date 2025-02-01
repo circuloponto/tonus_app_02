@@ -1,0 +1,62 @@
+.notePicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+  background-color: rgb(37, 42, 42);
+  border-radius: 4px;
+  width: 100%;
+  user-select: none;
+}
+
+.notePickerArrow {
+  background: none;
+  border: none;
+  color: rgb(253, 246, 227);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  transition: all 0.2s ease;
+}
+
+.notePickerArrow:hover {
+  color: rgb(88, 110, 117);
+}
+
+.notePickerDisplay {
+  flex: 1;
+  text-align: center;
+  color: rgb(253, 246, 227);
+  font-size: 0.9em;
+  padding: 5px 0;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: grab;
+}
+
+.notePickerDisplay:active {
+  cursor: grabbing;
+}
+
+@media (max-width: 480px) {
+  .notePicker {
+    padding: 3px;
+  }
+
+  .notePickerArrow {
+    font-size: 20px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .notePickerDisplay {
+    font-size: 0.8em;
+  }
+}

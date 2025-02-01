@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './CustomScaleBuilder.module.css';
 
 const CustomScaleBuilder = ({ intervals, onIntervalToggle }) => {
   // Array of all possible intervals (0 to 11 semitones)
@@ -9,22 +10,33 @@ const CustomScaleBuilder = ({ intervals, onIntervalToggle }) => {
     onIntervalToggle(Number(interval));
   };
 
+  const getButtonClass = (interval) => {
+    let className = styles.intervalSquare;
+    if (intervals.includes(Number(interval))) {
+      className += ' ' + styles.selected;
+    }
+    if (interval === 0) {
+      className += ' ' + styles.root;
+    }
+    return className;
+  };
+
   return (
-    <div className="custom-scale-builder">
-      <div className="interval-squares">
+    <div className={styles.customScaleBuilder}>
+      <div className={styles.intervalSquares}>
         {allIntervals.map((interval) => (
           <button
             key={interval}
-            className={`interval-square ${intervals.includes(Number(interval)) ? 'selected' : ''} ${interval === 0 ? 'root' : ''}`}
+            className={getButtonClass(interval)}
             onClick={() => handleClick(interval)}
           >
             {intervals.includes(Number(interval)) ? '×' : interval}
           </button>
         ))}
       </div>
-      <div className="interval-labels">
+      <div className={styles.intervalLabels}>
         {allIntervals.map((interval) => (
-          <div key={interval} className="interval-label">
+          <div key={interval} className={styles.intervalLabel}>
             {interval}
           </div>
         ))}

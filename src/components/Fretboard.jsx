@@ -1,57 +1,36 @@
 import React from 'react';
-import { Note } from '@tonaljs/tonal';
+import styles from './Fretboard.module.css';
 
-const Fretboard = ({ notes, indexes, onFretClick, clickedFrets, scaleNotes = [] }) => {
-  const normalizeNote = (note) => {
-    const parsed = Note.get(note);
-    return parsed.empty ? note : Note.simplify(parsed.name);
-  };
+const Fretboard = ({ notes, indexes, onFretClick, clickedFrets, scaleNotes }) => {
+  return (
+    <div className={styles.fretboardContainer}>
+      <div className={styles.fretboard}>
+        {notes.map((row, stringIndex) => (
+          <div key={stringIndex} className={styles.string}>
+            {row.map((note, fretIndex) => {
+              const isClicked = clickedFrets.some(
+                fret => 
+                  fret.stringIndex === stringIndex && 
+                  fret.fretIndex === fretIndex
+              );
+              const isInScale = scaleNotes.includes(note);
 
-  const isClicked = (stringIndex, fretIndex) => {
-    return clickedFrets.some(
-      fret => fret.stringIndex === stringIndex && fret.fretIndex === fretIndex
-    );
-  };
-
-  const isInScale = (note) => {
-    const normalizedScaleNotes = scaleNotes.map(normalizeNote);
-    const normalizedNote = normalizeNote(note);
-    return normalizedScaleNotes.includes(normalizedNote);
-  };
-
-  const isRoot = (note) => {
-    const normalizedScaleNotes = scaleNotes.map(normalizeNote);
-    const normalizedNote = normalizeNote(note);
-    return normalizedScaleNotes.length > 0 && normalizedNote === normalizedScaleNotes[0];
-  };
-
-  // Log normalized scale notes for debugging
-  React.useEffect(() => {
-    const normalizedScaleNotes = scaleNotes.map(normalizeNote);
-    console.log('Normalized scale notes in Fretboard:', normalizedScaleNotes);
-  }, [scaleNotes]);
-
-  return ( 
-    <div className="fretboard">
-      {notes.map((string, stringIndex) => (
-        <div key={`string-${stringIndex}`} className={`string string${stringIndex}`}>
-          {string.map((note, fretIndex) => (
-            <div className="fret-wrapper" key={`string-${stringIndex}-fret-${fretIndex}`}>
-              <div 
-                data-index={indexes[stringIndex][fretIndex]}
-                className={`fret 
-                  ${isClicked(stringIndex, fretIndex) ? 'click-highlighted' : ''}
-                  ${isInScale(note) ? 'scale-highlighted' : 'non-scale-tone'}
-                  ${isRoot(note) ? 'root-note' : ''}
-                  ${isInScale(note) && isClicked(stringIndex, fretIndex) ? 'scale-click-highlighted' : ''}`} 
-                onClick={(e) => onFretClick(e, note, stringIndex, fretIndex)}
-              >
-                {note}
-              </div>
-            </div>
-          ))}
-        </div>
-      ))}
+              return (
+                <div
+                  key={fretIndex}
+                  className={`${styles.fret} ${isClicked ? styles.clicked : ''} ${isInScale ? styles.inScale : ''}`}
+                  onClick={(e) => onFretClick(e, note, stringIndex, fretIndex)}
+                >
+                  {note}
+                  {fretIndex > 0 && stringIndex === 0 && (
+                    <span className={styles.fretNumber}>{fretIndex}</span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

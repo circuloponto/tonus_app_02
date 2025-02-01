@@ -1,0 +1,157 @@
+.scalesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  padding: 15px;
+  background-color: rgb(68, 60, 60);
+  border-radius: 8px;
+  color: rgb(253, 246, 227);
+}
+
+.scaleTypeContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+
+.scaleButton {
+  padding: 8px 16px;
+  background-color: rgb(37, 42, 42);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: rgb(253, 246, 227);
+  font-size: 0.9em;
+  transition: all 0.2s ease;
+  text-align: center;
+  width: 100%;
+}
+
+.scaleButton:hover {
+  background-color: rgb(88, 110, 117);
+}
+
+.scaleButton.selected {
+  background-color: rgb(88, 110, 117);
+  color: rgb(253, 246, 227);
+}
+
+.customScaleContainer {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease;
+  min-height: 120px;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 10px;
+  padding: 20px;
+  background-color: rgb(37, 42, 42);
+  border: 1px solid rgb(37, 42, 42);
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.customScaleContainer.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.customScaleContainer > * {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.intervalButton {
+  padding: 8px;
+  background-color: rgb(37, 42, 42);
+  border: 2px solid rgb(37, 42, 42);
+  border-radius: 4px;
+  cursor: pointer;
+  color: rgb(253, 246, 227);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.intervalButton:hover {
+  background-color: rgb(88, 110, 117);
+}
+
+.intervalButton.selected {
+  background-color: rgb(88, 110, 117);
+  color: rgb(253, 246, 227);
+  border-color: rgb(88, 110, 117);
+}
+
+.rootNoteContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+
+.rootNoteButton {
+  aspect-ratio: 1;
+  background-color: rgb(37, 42, 42);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: rgb(253, 246, 227);
+  font-size: clamp(10px, 1.5vw, 14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.rootNoteButton:hover {
+  background-color: rgb(88, 110, 117);
+}
+
+.rootNoteButton.selected {
+  background-color: rgb(88, 110, 117);
+  color: rgb(253, 246, 227);
+}
+
+.rootNoteLabel {
+  color: rgb(253, 246, 227);
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .scalesContainer {
+    padding: 10px;
+  }
+
+  .scaleTypeContainer {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 6px;
+  }
+
+  .scaleButton {
+    padding: 6px 12px;
+    font-size: 0.85em;
+  }
+}
+
+@media (max-width: 480px) {
+  .scaleTypeContainer {
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 4px;
+  }
+
+  .scaleButton {
+    padding: 5px 10px;
+    font-size: 0.8em;
+  }
+
+  .rootNoteButton {
+    font-size: clamp(8px, 3vw, 12px);
+  }
+}

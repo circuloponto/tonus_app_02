@@ -1,0 +1,125 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 10px;
+  padding: 20px;
+  background-color: rgb(37, 42, 42);
+  border: 1px solid rgb(88, 110, 117);
+  border-radius: 8px;
+}
+
+.intervalButton {
+  padding: 8px;
+  background-color: rgb(60, 68, 68);
+  border: 2px solid rgb(88, 110, 117);
+  border-radius: 4px;
+  cursor: pointer;
+  color: rgb(253, 246, 227);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.intervalButton:hover {
+  background-color: rgb(88, 110, 117);
+}
+
+.intervalButton.selected {
+  background-color: rgb(88, 110, 117);
+  color: rgb(253, 246, 227);
+  border-color: rgb(88, 110, 117);
+}
+
+.intervalButton.rootNote {
+  /* background-color: rgb(161, 103, 69); */
+  color: rgb(253, 246, 227);
+  /* border-color: rgb(161, 103, 69); */
+  pointer-events: none;
+}
+
+.customScaleBuilder {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  padding: 15px;
+  background-color: rgb(37, 42, 42);
+  border-radius: 8px;
+}
+
+.intervalSquares {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 4px;
+  width: 100%;
+}
+
+.intervalSquare {
+  aspect-ratio: 1.6;
+  background-color: rgb(60, 68, 68);
+  border: none;
+  border-radius: 4px;
+  color: rgb(253, 246, 227);
+  cursor: pointer;
+  font-size: clamp(10px, 1.5vw, 14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+  min-width: 0;
+}
+
+.intervalSquare:hover {
+  background-color: rgb(88, 110, 117);
+}
+
+.intervalSquare.selected {
+  background-color: rgb(88, 110, 117);
+  color: rgb(253, 246, 227);
+}
+
+.intervalSquare.root {
+  /* background-color: rgb(161, 103, 69); */
+  color: rgb(253, 246, 227);
+  /* pointer-events: none; */
+}
+
+.intervalLabels {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 4px;
+  width: 100%;
+  padding: 0 2px;
+}
+
+.intervalLabel {
+  text-align: center;
+  color: rgb(253, 246, 227);
+  font-size: clamp(8px, 1.2vw, 12px);
+  opacity: 0.7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .customScaleBuilder {
+    padding: 10px;
+  }
+
+  .intervalSquares {
+    gap: 3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .intervalSquares {
+    gap: 2px;
+  }
+
+  .intervalSquare {
+    font-size: clamp(8px, 3vw, 12px);
+  }
+
+  .intervalLabel {
+    font-size: clamp(6px, 2.5vw, 10px);
+  }
+}

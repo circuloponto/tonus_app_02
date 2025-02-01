@@ -1,0 +1,36 @@
+.miniFretboardContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.miniFretboard {
+  width: 100%;
+  max-width: 150px;
+  transform: scale(1);
+  transform-origin: top center;
+  margin-top: -20px;
+}
+
+.controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: -17px;
+}
+
+.fretNumber {
+  font-size: 0.6rem;
+  padding: 0;
+  line-height: 1;
+  margin-top: 1px;
+}

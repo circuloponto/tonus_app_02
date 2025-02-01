@@ -3,6 +3,7 @@ import NotePicker from './NotePicker';
 import ScalePicker from './ScalePicker';
 import CustomScaleBuilder from './CustomScaleBuilder';
 import { Scale, Note } from '@tonaljs/tonal';
+import styles from './Scales.module.css';
 
 const Scales = ({ onSelectScale }) => {
   const [selectedRoot, setSelectedRoot] = useState('C');
@@ -64,15 +65,15 @@ const Scales = ({ onSelectScale }) => {
   }, [selectedRoot, selectedScale, customIntervals, onSelectScale]);
 
   return (
-    <div className="scales-section">
-      <div className="scale-controls">
+    <div className={styles.scalesSection}>
+      <div className={styles.scaleControls}>
         <label>Root Note</label>
         <NotePicker 
           selectedNote={selectedRoot}
           onSelectNote={setSelectedRoot}
         />
       </div>
-      <div className="scale-controls">
+      <div className={styles.scaleControls}>
         <label>Scale Type</label>
         <ScalePicker
           selectedScale={selectedScale}
@@ -80,12 +81,12 @@ const Scales = ({ onSelectScale }) => {
           scaleTypes={scaleTypes}
         />
       </div>
-      {selectedScale === 'custom' && (
+      <div className={`${styles.customScaleContainer} ${selectedScale === 'custom' ? styles.visible : ''}`}>
         <CustomScaleBuilder
           intervals={customIntervals}
           onIntervalToggle={handleIntervalToggle}
         />
-      )}
+      </div>
     </div>
   );
 };

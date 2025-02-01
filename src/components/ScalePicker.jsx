@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './ScalePicker.module.css';
 
 const ScalePicker = ({ selectedScale, onSelectScale, scaleTypes }) => {
   const currentIndex = scaleTypes.findIndex(scale => scale.name === selectedScale);
@@ -10,9 +11,9 @@ const ScalePicker = ({ selectedScale, onSelectScale, scaleTypes }) => {
   };
 
   return (
-    <div className="scale-picker">
+    <div className={styles.scalePicker}>
       <button 
-        className="scale-picker-arrow up"
+        className={styles.scalePickerArrow}
         onClick={(e) => handleArrowClick(-1, e)}
       >
         <div style={{margin:"-4px 0 0 0"}}>
@@ -20,11 +21,11 @@ const ScalePicker = ({ selectedScale, onSelectScale, scaleTypes }) => {
 
         </div>
       </button>
-      <div className="scale-picker-display">
+      <div className={styles.scalePickerDisplay}>
         {scaleTypes[currentIndex].label}
       </div>
       <button 
-        className="scale-picker-arrow down"
+        className={styles.scalePickerArrow}
         onClick={(e) => handleArrowClick(1, e)}
       >
         <div style={{margin:"-4px 0 0 0"}}>
