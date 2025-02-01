@@ -1,0 +1,110 @@
+.controls {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  padding: 10px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.controls.open {
+  transform: translateY(0);
+}
+
+.controls:not(.open) {
+  transform: translateY(calc(100% - 40px));
+}
+
+.toggleButton {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  padding: 5px 20px;
+  cursor: pointer;
+  border-radius: 5px 5px 0 0;
+}
+
+.controlsContent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.section {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section label {
+  font-weight: bold;
+  color: #333;
+}
+
+.section input[type="number"] {
+  width: 80px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.scaleSelect {
+  width: 100%;
+}
+
+.selectedNotes {
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  min-height: 40px;
+}
+
+.buttonSection {
+  display: flex;
+  gap: 10px;
+}
+
+.clearButton,
+.addButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.clearButton {
+  background-color: #ff4444;
+  color: white;
+}
+
+.clearButton:hover {
+  background-color: #cc0000;
+}
+
+.addButton {
+  background-color: #00C851;
+  color: white;
+}
+
+.addButton:hover {
+  background-color: #007E33;
+}
+
+.addButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
